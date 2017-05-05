@@ -20,7 +20,8 @@ module.exports = function (release) {
     debug: !release,
     devtool: false,
     entry: {
-      reactAutoComplete : './src/index.js',
+      'reactAutoComplete': './src/index.js',
+      'reactAutoComplete.min': './src/index.js',
     },
     output: {
       path: './lib/',
@@ -54,7 +55,9 @@ module.exports = function (release) {
     plugins: release ? [
       new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        include: /\.min\.js$/,
+      }),
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.AggressiveMergingPlugin()
     ] : [],
